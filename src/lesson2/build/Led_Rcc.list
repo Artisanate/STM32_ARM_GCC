@@ -1,0 +1,65 @@
+
+build/Led_Rcc.out:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <vectors_table>:
+   0:	20001000 	.word	0x20001000
+   4:	00000009 	.word	0x00000009
+
+00000008 <_start>:
+   8:	f000 f80d 	bl	26 <kcs_gpio_init>
+
+0000000c <loop>:
+   c:	f000 f819 	bl	42 <kcs_led_on>
+  10:	f04f 0064 	mov.w	r0, #100	; 0x64
+  14:	f000 f826 	bl	64 <kcs_led_deay>
+  18:	f000 f818 	bl	4c <kcs_led_off>
+  1c:	f04f 0064 	mov.w	r0, #100	; 0x64
+  20:	f000 f820 	bl	64 <kcs_led_deay>
+  24:	e7f2      	b.n	c <loop>
+
+00000026 <kcs_gpio_init>:
+  26:	480c      	ldr	r0, [pc, #48]	; (58 <kcs_led_off+0xc>)
+  28:	f04f 0120 	mov.w	r1, #32
+  2c:	6001      	str	r1, [r0, #0]
+  2e:	480b      	ldr	r0, [pc, #44]	; (5c <kcs_led_off+0x10>)
+  30:	f44f 7140 	mov.w	r1, #768	; 0x300
+  34:	6001      	str	r1, [r0, #0]
+  36:	480a      	ldr	r0, [pc, #40]	; (60 <kcs_led_off+0x14>)
+  38:	f04f 0100 	mov.w	r1, #0
+  3c:	6001      	str	r1, [r0, #0]
+  3e:	46c0      	nop			; (mov r8, r8)
+  40:	46c0      	nop			; (mov r8, r8)
+
+00000042 <kcs_led_on>:
+  42:	4807      	ldr	r0, [pc, #28]	; (60 <kcs_led_off+0x14>)
+  44:	f04f 0100 	mov.w	r1, #0
+  48:	6001      	str	r1, [r0, #0]
+  4a:	46f7      	mov	pc, lr
+
+0000004c <kcs_led_off>:
+  4c:	4804      	ldr	r0, [pc, #16]	; (60 <kcs_led_off+0x14>)
+  4e:	f04f 0104 	mov.w	r1, #4
+  52:	6001      	str	r1, [r0, #0]
+  54:	46f7      	mov	pc, lr
+  56:	0000      	.short	0x0000
+  58:	40021018 	.word	0x40021018
+  5c:	40011400 	.word	0x40011400
+  60:	4001140c 	.word	0x4001140c
+
+00000064 <kcs_led_deay>:
+  64:	f1a0 0001 	sub.w	r0, r0, #1
+  68:	f44f 7102 	mov.w	r1, #520	; 0x208
+
+0000006c <delay_loop>:
+  6c:	f1a1 0101 	sub.w	r1, r1, #1
+  70:	46c0      	nop			; (mov r8, r8)
+  72:	46c0      	nop			; (mov r8, r8)
+  74:	46c0      	nop			; (mov r8, r8)
+  76:	2900      	cmp	r1, #0
+  78:	d1f8      	bne.n	6c <delay_loop>
+  7a:	2800      	cmp	r0, #0
+  7c:	f47f aff2 	bne.w	64 <kcs_led_deay>
+  80:	46f7      	mov	pc, lr

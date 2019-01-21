@@ -1,0 +1,6 @@
+参考了该博客https://blog.csdn.net/zhengyangliu123/article/details/54784038
+1、不能在共享目录下安装
+2、安装之后libstlink.so.1这个共享库是在/usr/local/lib下，但是在运行命令st-flashXXXXXX
+	时，Ubuntu系统在/usr/lib下寻找的。可以修改配置文件该目录下的/etc/ld.so.conf文件。
+	加入include /usr/local/lib
+	第二点主要针对st-flashXXXXXX 该命令时出现的无法找到libstlink.so.1库解决的。
