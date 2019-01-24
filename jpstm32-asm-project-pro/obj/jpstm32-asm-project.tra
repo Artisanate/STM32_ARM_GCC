@@ -1,0 +1,28 @@
+*** Creating Trace Output File '.\obj\jpstm32-asm-project.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\obj\init.o"'
+### List of Objects: adding '".\obj\led.o"'
+### List of Objects: adding '".\obj\common.o"'
+### List of Objects: adding '".\obj\key.o"'
+### List of Objects: adding '".\obj\usart.o"'
+### List of Objects: adding '".\obj\tftlcd.o"'
+### List of Objects: adding '".\obj\map.o"'
+### List of Objects: adding '".\obj\main.o"'
+### List of Objects: adding '".\obj\font.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 ".\obj\init.o" ".\obj\led.o" ".\obj\common.o" ".\obj\key.o" ".\obj\usart.o" ".\obj\tftlcd.o" ".\obj\map.o" ".\obj\main.o" ".\obj\font.o" 
+--strict --scatter ".\obj\jpstm32-asm-project.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\list\jpstm32-asm-project.map" -o .\obj\jpstm32-asm-project.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\obj\jpstm32-asm-project.axf'
+### ADS-LD Command File: '.\obj\jpstm32-asm-project.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\obj\jpstm32-asm-project.lnp', Handle=0x00000914
+### Writing '.lnp' file
+### ADS-LD Command file '.\obj\jpstm32-asm-project.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

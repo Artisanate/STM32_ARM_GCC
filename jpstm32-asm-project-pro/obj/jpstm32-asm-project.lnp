@@ -1,0 +1,5 @@
+--cpu Cortex-M3 ".\obj\init.o" ".\obj\led.o" ".\obj\common.o" ".\obj\key.o" ".\obj\usart.o" ".\obj\tftlcd.o" ".\obj\map.o" ".\obj\main.o" ".\obj\font.o" 
+--strict --scatter ".\obj\jpstm32-asm-project.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\list\jpstm32-asm-project.map" -o .\obj\jpstm32-asm-project.axf

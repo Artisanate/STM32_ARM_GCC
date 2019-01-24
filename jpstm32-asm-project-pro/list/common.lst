@@ -1,0 +1,3223 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;============================================
+    2 00000000         ;common.s 本文件中定义一些常用子程序
+    3 00000000         ;============================================
+    4 00000000                 INCLUDE          map.s
+    1 00000000         ;系统各个模块寄存器映射及定义
+    2 00000000         
+    3 00000000         ;=================================================
+    4 00000000         ;系统时钟寄存器定义
+    5 00000000         ;=================================================
+    6 00000000 40021000 
+                       RCC_BASE
+                               EQU              0x40021000
+    7 00000000 40021000 
+                       RCC_CR  EQU              (RCC_BASE + 0x00)
+    8 00000000 40021004 
+                       RCC_CFGR
+                               EQU              (RCC_BASE + 0x04)
+    9 00000000 40021008 
+                       RCC_CIR EQU              (RCC_BASE + 0x08)
+   10 00000000 4002100C 
+                       RCC_APB2RSTR
+                               EQU              (RCC_BASE + 0x0C)
+   11 00000000 40021010 
+                       RCC_APB1RSTR
+                               EQU              (RCC_BASE + 0x10)
+   12 00000000 40021014 
+                       RCC_AHBENR
+                               EQU              (RCC_BASE + 0x14)
+   13 00000000 40021018 
+                       RCC_APB2ENR
+                               EQU              (RCC_BASE + 0x18)
+   14 00000000 4002101C 
+                       RCC_APB1ENR
+                               EQU              (RCC_BASE + 0x1C)
+   15 00000000 40021020 
+                       RCC_BDCR
+                               EQU              (RCC_BASE + 0x20)
+   16 00000000 40021024 
+                       RCC_CSR EQU              (RCC_BASE + 0x24)
+   17 00000000         
+   18 00000000         ;-------------------------------------------------
+   19 00000000         ;=================================================
+   20 00000000         ;GPIOA端口寄存器定义
+   21 00000000         ;=================================================
+   22 00000000 40010800 
+                       GPIOA_BASE
+                               EQU              0x40010800
+   23 00000000 40010800 
+                       GPIOA_CRL
+                               EQU              (GPIOA_BASE + 0x00)
+   24 00000000 40010804 
+                       GPIOA_CRH
+                               EQU              (GPIOA_BASE + 0x04)
+   25 00000000 40010808 
+                       GPIOA_IDR
+                               EQU              (GPIOA_BASE + 0x08)
+   26 00000000 4001080C 
+                       GPIOA_ODR
+                               EQU              (GPIOA_BASE + 0x0C)
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   27 00000000 40010810 
+                       GPIOA_BSRR
+                               EQU              (GPIOA_BASE + 0x10)
+   28 00000000 40010814 
+                       GPIOA_BRR
+                               EQU              (GPIOA_BASE + 0x14)
+   29 00000000 40010818 
+                       GPIOA_LCKR
+                               EQU              (GPIOA_BASE + 0x18)
+   30 00000000         
+   31 00000000         ;-------------------------------------------------
+   32 00000000         ;=================================================
+   33 00000000         ;GPIOB端口寄存器定义
+   34 00000000         ;=================================================
+   35 00000000 40010C00 
+                       GPIOB_BASE
+                               EQU              0x40010C00
+   36 00000000 40010C00 
+                       GPIOB_CRL
+                               EQU              (GPIOB_BASE + 0x00)
+   37 00000000 40010C04 
+                       GPIOB_CRH
+                               EQU              (GPIOB_BASE + 0x04)
+   38 00000000 40010C08 
+                       GPIOB_IDR
+                               EQU              (GPIOB_BASE + 0x08)
+   39 00000000 40010C0C 
+                       GPIOB_ODR
+                               EQU              (GPIOB_BASE + 0x0C)
+   40 00000000 40010C10 
+                       GPIOB_BSRR
+                               EQU              (GPIOB_BASE + 0x10)
+   41 00000000 40010C14 
+                       GPIOB_BRR
+                               EQU              (GPIOB_BASE + 0x14)
+   42 00000000 40010C18 
+                       GPIOB_LCKR
+                               EQU              (GPIOB_BASE + 0x18)
+   43 00000000         
+   44 00000000         ;-------------------------------------------------
+   45 00000000         ;=================================================
+   46 00000000         ;GPIOC端口寄存器定义
+   47 00000000         ;=================================================
+   48 00000000 40011000 
+                       GPIOC_BASE
+                               EQU              0x40011000
+   49 00000000 40011000 
+                       GPIOC_CRL
+                               EQU              (GPIOC_BASE + 0x00)
+   50 00000000 40011004 
+                       GPIOC_CRH
+                               EQU              (GPIOC_BASE + 0x04)
+   51 00000000 40011008 
+                       GPIOC_IDR
+                               EQU              (GPIOC_BASE + 0x08)
+   52 00000000 4001100C 
+                       GPIOC_ODR
+                               EQU              (GPIOC_BASE + 0x0C)
+   53 00000000 40011010 
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                       GPIOC_BSRR
+                               EQU              (GPIOC_BASE + 0x10)
+   54 00000000 40011014 
+                       GPIOC_BRR
+                               EQU              (GPIOC_BASE + 0x14)
+   55 00000000 40011018 
+                       GPIOC_LCKR
+                               EQU              (GPIOC_BASE + 0x18)
+   56 00000000         
+   57 00000000         ;-------------------------------------------------
+   58 00000000         ;=================================================
+   59 00000000         ;GPIOD端口寄存器定义
+   60 00000000         ;=================================================
+   61 00000000 40011400 
+                       GPIOD_BASE
+                               EQU              0x40011400
+   62 00000000 40011400 
+                       GPIOD_CRL
+                               EQU              (GPIOD_BASE + 0x00)
+   63 00000000 40011404 
+                       GPIOD_CRH
+                               EQU              (GPIOD_BASE + 0x04)
+   64 00000000 40011408 
+                       GPIOD_IDR
+                               EQU              (GPIOD_BASE + 0x08)
+   65 00000000 4001140C 
+                       GPIOD_ODR
+                               EQU              (GPIOD_BASE + 0x0C)
+   66 00000000 40011410 
+                       GPIOD_BSRR
+                               EQU              (GPIOD_BASE + 0x10)
+   67 00000000 40011414 
+                       GPIOD_BRR
+                               EQU              (GPIOD_BASE + 0x14)
+   68 00000000 40011418 
+                       GPIOD_LCKR
+                               EQU              (GPIOD_BASE + 0x18)
+   69 00000000         
+   70 00000000         ;-------------------------------------------------
+   71 00000000         ;=================================================
+   72 00000000         ;GPIOE端口寄存器定义
+   73 00000000         ;=================================================
+   74 00000000 40011800 
+                       GPIOE_BASE
+                               EQU              0x40011800
+   75 00000000 40011800 
+                       GPIOE_CRL
+                               EQU              (GPIOE_BASE + 0x00)
+   76 00000000 40011804 
+                       GPIOE_CRH
+                               EQU              (GPIOE_BASE + 0x04)
+   77 00000000 40011808 
+                       GPIOE_IDR
+                               EQU              (GPIOE_BASE + 0x08)
+   78 00000000 4001180C 
+                       GPIOE_ODR
+                               EQU              (GPIOE_BASE + 0x0C)
+   79 00000000 40011810 
+                       GPIOE_BSRR
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+                               EQU              (GPIOE_BASE + 0x10)
+   80 00000000 40011814 
+                       GPIOE_BRR
+                               EQU              (GPIOE_BASE + 0x14)
+   81 00000000 40011818 
+                       GPIOE_LCKR
+                               EQU              (GPIOE_BASE + 0x18)
+   82 00000000         
+   83 00000000         ;-------------------------------------------------
+   84 00000000         ;=================================================
+   85 00000000         ;GPIOF端口寄存器定义
+   86 00000000         ;=================================================
+   87 00000000 40011C00 
+                       GPIOF_BASE
+                               EQU              0x40011C00
+   88 00000000 40011C00 
+                       GPIOF_CRL
+                               EQU              (GPIOF_BASE + 0x00)
+   89 00000000 40011C04 
+                       GPIOF_CRH
+                               EQU              (GPIOF_BASE + 0x04)
+   90 00000000 40011C08 
+                       GPIOF_IDR
+                               EQU              (GPIOF_BASE + 0x08)
+   91 00000000 40011C0C 
+                       GPIOF_ODR
+                               EQU              (GPIOF_BASE + 0x0C)
+   92 00000000 40011C10 
+                       GPIOF_BSRR
+                               EQU              (GPIOF_BASE + 0x10)
+   93 00000000 40011C14 
+                       GPIOF_BRR
+                               EQU              (GPIOF_BASE + 0x14)
+   94 00000000 40011C18 
+                       GPIOF_LCKR
+                               EQU              (GPIOF_BASE + 0x18)
+   95 00000000         
+   96 00000000         ;-------------------------------------------------
+   97 00000000         ;=================================================
+   98 00000000         ;GPIOG端口寄存器定义
+   99 00000000         ;=================================================
+  100 00000000 40012000 
+                       GPIOG_BASE
+                               EQU              0x40012000
+  101 00000000 40012000 
+                       GPIOG_CRL
+                               EQU              (GPIOG_BASE + 0x00)
+  102 00000000 40012004 
+                       GPIOG_CRH
+                               EQU              (GPIOG_BASE + 0x04)
+  103 00000000 40012008 
+                       GPIOG_IDR
+                               EQU              (GPIOG_BASE + 0x08)
+  104 00000000 4001200C 
+                       GPIOG_ODR
+                               EQU              (GPIOG_BASE + 0x0C)
+  105 00000000 40012010 
+                       GPIOG_BSRR
+                               EQU              (GPIOG_BASE + 0x10)
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  106 00000000 40012014 
+                       GPIOG_BRR
+                               EQU              (GPIOG_BASE + 0x14)
+  107 00000000 40012018 
+                       GPIOG_LCKR
+                               EQU              (GPIOG_BASE + 0x18)
+  108 00000000         
+  109 00000000         ;-------------------------------------------------
+  110 00000000         ;=================================================
+  111 00000000         ;系统中断寄存器定义
+  112 00000000         ;=================================================
+  113 00000000 E000E100 
+                       NVIC_BASE
+                               EQU              0xE000E100
+  114 00000000 E000E100 
+                       NVIC_ISER1
+                               EQU              (NVIC_BASE + 0X0000)
+  115 00000000 E000E104 
+                       NVIC_ISER2
+                               EQU              (NVIC_BASE + 0X0004)
+  116 00000000 E000E180 
+                       NVIC_ICER1
+                               EQU              (NVIC_BASE + 0X0080)
+  117 00000000 E000E184 
+                       NVIC_ICER2
+                               EQU              (NVIC_BASE + 0X0084)
+  118 00000000 E000E200 
+                       NVIC_ISPR1
+                               EQU              (NVIC_BASE + 0X0100)
+  119 00000000 E000E204 
+                       NVIC_ISPR2
+                               EQU              (NVIC_BASE + 0X0104)
+  120 00000000 E000E280 
+                       NVIC_ICPR1
+                               EQU              (NVIC_BASE + 0X0180)
+  121 00000000 E000E284 
+                       NVIC_ICPR2
+                               EQU              (NVIC_BASE + 0X0184)
+  122 00000000 E000E300 
+                       NVIC_IABR1
+                               EQU              (NVIC_BASE + 0X0200)
+  123 00000000 E000E304 
+                       NVIC_IABR2
+                               EQU              (NVIC_BASE + 0X0204)
+  124 00000000 E000E400 
+                       NVIC_IPR_BASE
+                               EQU              (NVIC_BASE + 0X0300)
+  125 00000000         
+  126 00000000         
+  127 00000000         ;-------------------------------------------------
+  128 00000000         ;=================================================
+  129 00000000         ;SCB寄存器组定义
+  130 00000000         ;=================================================
+  131 00000000 E000ED00 
+                       SCB_BASE
+                               EQU              0XE000ED00
+  132 00000000 E000ED00 
+                       SCB_CPUID
+                               EQU              (SCB_BASE + 0X00)
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+  133 00000000 E000ED04 
+                       SCB_ICSR
+                               EQU              (SCB_BASE + 0X04)
+  134 00000000 E000ED08 
+                       SCB_VTOR
+                               EQU              (SCB_BASE + 0X08)
+  135 00000000 E000ED0C 
+                       SCB_AIRCR
+                               EQU              (SCB_BASE + 0X0C)
+  136 00000000 E000ED10 
+                       SCB_SCR EQU              (SCB_BASE + 0X10)
+  137 00000000 E000ED14 
+                       SCB_CCR EQU              (SCB_BASE + 0X14)
+  138 00000000 E000ED18 
+                       SCB_SHPR1
+                               EQU              (SCB_BASE + 0X18)
+  139 00000000 E000ED1C 
+                       SCB_SHPR2
+                               EQU              (SCB_BASE + 0X1C)
+  140 00000000 E000ED20 
+                       SCB_SHPR3
+                               EQU              (SCB_BASE + 0X20)
+  141 00000000 E000ED24 
+                       SCB_SHCSR
+                               EQU              (SCB_BASE + 0X24)
+  142 00000000 E000ED28 
+                       SCB_CFSR
+                               EQU              (SCB_BASE + 0X28)
+  143 00000000 E000ED2C 
+                       SCB_HFSR
+                               EQU              (SCB_BASE + 0X2C)
+  144 00000000 E000ED30 
+                       SCB_DFSR
+                               EQU              (SCB_BASE + 0X30)
+  145 00000000 E000ED34 
+                       SCB_MMFAR
+                               EQU              (SCB_BASE + 0X34)
+  146 00000000 E000ED38 
+                       SCB_BFAR
+                               EQU              (SCB_BASE + 0X38)
+  147 00000000 E000ED3C 
+                       SCB_AFSR
+                               EQU              (SCB_BASE + 0X3C)
+  148 00000000         
+  149 00000000         
+  150 00000000         ;-------------------------------------------------
+  151 00000000         ;=================================================
+  152 00000000         ;Systick reg
+  153 00000000         ;=================================================
+  154 00000000 E000E010 
+                       SysTick_BASE
+                               EQU              0xE000E010
+  155 00000000 E000E010 
+                       SYSTICK_CTRL
+                               EQU              (SysTick_BASE + 0x00)
+  156 00000000 E000E014 
+                       SYSTICK_LOAD
+                               EQU              (SysTick_BASE + 0x04)
+  157 00000000 E000E018 
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+                       SYSTICK_VAL
+                               EQU              (SysTick_BASE + 0X08)
+  158 00000000 E000E01C 
+                       SYSTICK_CALIB
+                               EQU              (SysTick_BASE + 0X0C)
+  159 00000000         ;FLASH配置寄存器
+  160 00000000 40022000 
+                       FLASH_ACR
+                               EQU              0x40022000
+  161 00000000         
+  162 00000000         ;-------------------------------------------------
+  163 00000000         ;=================================================
+  164 00000000         ;USART1 寄存器定义
+  165 00000000         ;=================================================
+  166 00000000 40013800 
+                       USART1_BASE
+                               EQU              0X40013800
+  167 00000000 40013800 
+                       USART1_SR
+                               EQU              (USART1_BASE + 0X00)
+  168 00000000 40013804 
+                       USART1_DR
+                               EQU              (USART1_BASE + 0X04)
+  169 00000000 40013808 
+                       USART1_BRR
+                               EQU              (USART1_BASE + 0X08)
+  170 00000000 4001380C 
+                       USART1_CR1
+                               EQU              (USART1_BASE + 0X0C)
+  171 00000000 40013810 
+                       USART1_CR2
+                               EQU              (USART1_BASE + 0X10)
+  172 00000000 40013814 
+                       USART1_CR3
+                               EQU              (USART1_BASE + 0X14)
+  173 00000000 40013818 
+                       USART1_GTPR
+                               EQU              (USART1_BASE + 0X18)
+  174 00000000         
+  175 00000000         ;-------------------------------------------------
+  176 00000000         ;=================================================
+  177 00000000         ;FSMC相关寄存器定义
+  178 00000000         ;=================================================
+  179 00000000 A0000000 
+                       FSMC_Bank1_R_BASE
+                               EQU              0XA0000000
+  180 00000000 A0000000 
+                       FSMC_BANK1_BTCR
+                               EQU              (FSMC_Bank1_R_BASE)
+  181 00000000 A0000104 
+                       FSMC_Bank1E_R_BASE
+                               EQU              0XA0000104
+  182 00000000 A0000104 
+                       FSMC_BANK1E_BWTR
+                               EQU              (FSMC_Bank1E_R_BASE)
+  183 00000000         
+  184 00000000         ;-------------------------------------------------
+  185 00000000         ;=================================================
+  186 00000000         ;数据位的定义
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+  187 00000000         ;=================================================
+  188 00000000 00000001 
+                       Bit0    EQU              0x00000001
+  189 00000000 00000002 
+                       Bit1    EQU              0x00000002
+  190 00000000 00000004 
+                       Bit2    EQU              0x00000004
+  191 00000000 00000008 
+                       Bit3    EQU              0x00000008
+  192 00000000 00000010 
+                       Bit4    EQU              0x00000010
+  193 00000000 00000020 
+                       Bit5    EQU              0x00000020
+  194 00000000 00000040 
+                       Bit6    EQU              0x00000040
+  195 00000000 00000080 
+                       Bit7    EQU              0x00000080
+  196 00000000 00000100 
+                       Bit8    EQU              0x00000100
+  197 00000000 00000200 
+                       Bit9    EQU              0x00000200
+  198 00000000 00000400 
+                       Bit10   EQU              0x00000400
+  199 00000000 00000800 
+                       Bit11   EQU              0x00000800
+  200 00000000 00001000 
+                       Bit12   EQU              0x00001000
+  201 00000000 00002000 
+                       Bit13   EQU              0x00002000
+  202 00000000 00004000 
+                       Bit14   EQU              0x00004000
+  203 00000000 00008000 
+                       Bit15   EQU              0x00008000
+  204 00000000 00010000 
+                       Bit16   EQU              0x00010000
+  205 00000000 00020000 
+                       Bit17   EQU              0x00020000
+  206 00000000 00040000 
+                       Bit18   EQU              0x00040000
+  207 00000000 00080000 
+                       Bit19   EQU              0x00080000
+  208 00000000 00100000 
+                       Bit20   EQU              0x00100000
+  209 00000000 00200000 
+                       Bit21   EQU              0x00200000
+  210 00000000 00400000 
+                       Bit22   EQU              0x00400000
+  211 00000000 00800000 
+                       Bit23   EQU              0x00800000
+  212 00000000 01000000 
+                       Bit24   EQU              0x01000000
+  213 00000000 02000000 
+                       Bit25   EQU              0x02000000
+  214 00000000 04000000 
+                       Bit26   EQU              0x04000000
+  215 00000000 08000000 
+                       Bit27   EQU              0x08000000
+  216 00000000 10000000 
+                       Bit28   EQU              0x10000000
+
+
+
+ARM Macro Assembler    Page 9 
+
+
+  217 00000000 20000000 
+                       Bit29   EQU              0x20000000
+  218 00000000 40000000 
+                       Bit30   EQU              0x40000000
+  219 00000000 80000000 
+                       Bit31   EQU              0x80000000
+  220 00000000         
+  221 00000000         ;-------------------------------------------------
+  222 00000000         ;=================================================
+  223 00000000         ;按键的键值定义
+  224 00000000         ;=================================================
+  225 00000000 00000001 
+                       KEY_UP  EQU              0X01
+  226 00000000 00000002 
+                       KEY_DOWN
+                               EQU              0X02
+  227 00000000 00000004 
+                       KEY_LEFT
+                               EQU              0X04
+  228 00000000 00000008 
+                       KEY_RIGHT
+                               EQU              0X08
+  229 00000000 0000000C 
+                       KEY_CENTER
+                               EQU              0X0C
+  230 00000000         ;-------------------------------------------------
+  231 00000000         ;=================================================
+  232 00000000         ;系统中断号定义
+  233 00000000         ;=================================================
+  234 00000000         
+  235 00000000 00000000 
+                       WWDG_IRQChannel
+                               EQU              0x00        ;)  /* Window Watch
+                                                            Dog Interrupt */
+  236 00000000 00000001 
+                       PVD_IRQChannel
+                               EQU              0x01        ;)  /* PVD through 
+                                                            EXTI Line detection
+                                                             Interrupt */
+  237 00000000 00000002 
+                       TAMPER_IRQChannel
+                               EQU              0x02        ;)  /* Tamper Inter
+                                                            rupt */
+  238 00000000 00000003 
+                       RTC_IRQChannel
+                               EQU              0x03        ;)  /* RTC global I
+                                                            nterrupt */
+  239 00000000 00000004 
+                       FLASH_IRQChannel
+                               EQU              0x04        ;)  /* FLASH global
+                                                             Interrupt */
+  240 00000000 00000005 
+                       RCC_IRQChannel
+                               EQU              0x05        ;)  /* RCC global I
+                                                            nterrupt */
+  241 00000000 00000006 
+                       EXTI0_IRQChannel
+                               EQU              0x06        ;)  /* EXTI Line0 I
+                                                            nterrupt */
+
+
+
+ARM Macro Assembler    Page 10 
+
+
+  242 00000000 00000007 
+                       EXTI1_IRQChannel
+                               EQU              0x07        ;)  /* EXTI Line1 I
+                                                            nterrupt */
+  243 00000000 00000008 
+                       EXTI2_IRQChannel
+                               EQU              0x08        ;)  /* EXTI Line2 I
+                                                            nterrupt */
+  244 00000000 00000009 
+                       EXTI3_IRQChannel
+                               EQU              0x09        ;)  /* EXTI Line3 I
+                                                            nterrupt */
+  245 00000000 0000000A 
+                       EXTI4_IRQChannel
+                               EQU              0x0A        ;)  /* EXTI Line4 I
+                                                            nterrupt */
+  246 00000000 0000000B 
+                       DMA1_Channel1_IRQChannel
+                               EQU              0x0B        ;)  /* DMA1 Channel
+                                                             1 global Interrupt
+                                                             */
+  247 00000000 0000000C 
+                       DMA1_Channel2_IRQChannel
+                               EQU              0x0C        ;)  /* DMA1 Channel
+                                                             2 global Interrupt
+                                                             */
+  248 00000000 0000000D 
+                       DMA1_Channel3_IRQChannel
+                               EQU              0x0D        ;)  /* DMA1 Channel
+                                                             3 global Interrupt
+                                                             */
+  249 00000000 0000000E 
+                       DMA1_Channel4_IRQChannel
+                               EQU              0x0E        ;)  /* DMA1 Channel
+                                                             4 global Interrupt
+                                                             */
+  250 00000000 0000000F 
+                       DMA1_Channel5_IRQChannel
+                               EQU              0x0F        ;)  /* DMA1 Channel
+                                                             5 global Interrupt
+                                                             */
+  251 00000000 00000010 
+                       DMA1_Channel6_IRQChannel
+                               EQU              0x10        ;)  /* DMA1 Channel
+                                                             6 global Interrupt
+                                                             */
+  252 00000000 00000011 
+                       DMA1_Channel7_IRQChannel
+                               EQU              0x11        ;)  /* DMA1 Channel
+                                                             7 global Interrupt
+                                                             */
+  253 00000000 00000012 
+                       ADC1_2_IRQChannel
+                               EQU              0x12        ;)  /* ADC1 et ADC2
+                                                             global Interrupt *
+                                                            /
+  254 00000000 00000013 
+                       USB_HP_CAN_TX_IRQChannel
+                               EQU              0x13        ;)  /* USB High Pri
+
+
+
+ARM Macro Assembler    Page 11 
+
+
+                                                            ority or CAN TX Int
+                                                            errupts */
+  255 00000000 00000014 
+                       USB_LP_CAN_RX0_IRQChannel
+                               EQU              0x14        ;)  /* USB Low Prio
+                                                            rity or CAN RX0 Int
+                                                            errupts */
+  256 00000000 00000015 
+                       CAN_RX1_IRQChannel
+                               EQU              0x15        ;)  /* CAN RX1 Inte
+                                                            rrupt */
+  257 00000000 00000016 
+                       CAN_SCE_IRQChannel
+                               EQU              0x16        ;)  /* CAN SCE Inte
+                                                            rrupt */
+  258 00000000 00000017 
+                       EXTI9_5_IRQChannel
+                               EQU              0x17        ;)  /* External Lin
+                                                            e[9:5] Interrupts *
+                                                            /
+  259 00000000 00000018 
+                       TIM1_BRK_IRQChannel
+                               EQU              0x18        ;)  /* TIM1 Break I
+                                                            nterrupt */
+  260 00000000 00000019 
+                       TIM1_UP_IRQChannel
+                               EQU              0x19        ;)  /* TIM1 Update 
+                                                            Interrupt */
+  261 00000000 0000001A 
+                       TIM1_TRG_COM_IRQChannel
+                               EQU              0x1A        ;)  /* TIM1 Trigger
+                                                             and Commutation In
+                                                            terrupt */
+  262 00000000 0000001B 
+                       TIM1_CC_IRQChannel
+                               EQU              0x1B        ;)  /* TIM1 Capture
+                                                             Compare Interrupt 
+                                                            */
+  263 00000000 0000001C 
+                       TIM2_IRQChannel
+                               EQU              0x1C        ;)  /* TIM2 global 
+                                                            Interrupt */
+  264 00000000 0000001D 
+                       TIM3_IRQChannel
+                               EQU              0x1D        ;)  /* TIM3 global 
+                                                            Interrupt */
+  265 00000000 0000001E 
+                       TIM4_IRQChannel
+                               EQU              0x1E        ;)  /* TIM4 global 
+                                                            Interrupt */
+  266 00000000 0000001F 
+                       I2C1_EV_IRQChannel
+                               EQU              0x1F        ;)  /* I2C1 Event I
+                                                            nterrupt */
+  267 00000000 00000020 
+                       I2C1_ER_IRQChannel
+                               EQU              0x20        ;)  /* I2C1 Error I
+                                                            nterrupt */
+  268 00000000 00000021 
+
+
+
+ARM Macro Assembler    Page 12 
+
+
+                       I2C2_EV_IRQChannel
+                               EQU              0x21        ;)  /* I2C2 Event I
+                                                            nterrupt */
+  269 00000000 00000022 
+                       I2C2_ER_IRQChannel
+                               EQU              0x22        ;)  /* I2C2 Error I
+                                                            nterrupt */
+  270 00000000 00000023 
+                       SPI1_IRQChannel
+                               EQU              0x23        ;)  /* SPI1 global 
+                                                            Interrupt */
+  271 00000000 00000024 
+                       SPI2_IRQChannel
+                               EQU              0x24        ;)  /* SPI2 global 
+                                                            Interrupt */
+  272 00000000 00000025 
+                       USART1_IRQChannel
+                               EQU              0x25        ;)  /* USART1 globa
+                                                            l Interrupt */
+  273 00000000 00000026 
+                       USART2_IRQChannel
+                               EQU              0x26        ;)  /* USART2 globa
+                                                            l Interrupt */
+  274 00000000 00000027 
+                       USART3_IRQChannel
+                               EQU              0x27        ;)  /* USART3 globa
+                                                            l Interrupt */
+  275 00000000 00000028 
+                       EXTI15_10_IRQChannel
+                               EQU              0x28        ;)  /* External Lin
+                                                            e[15:10] Interrupts
+                                                             */
+  276 00000000 00000029 
+                       RTCAlarm_IRQChannel
+                               EQU              0x29        ;)  /* RTC Alarm th
+                                                            rough EXTI Line Int
+                                                            errupt */
+  277 00000000 0000002A 
+                       USBWakeUp_IRQChannel
+                               EQU              0x2A        ;)  /* USB WakeUp f
+                                                            rom suspend through
+                                                             EXTI Line Interrup
+                                                            t */
+  278 00000000 0000002B 
+                       TIM8_BRK_IRQChannel
+                               EQU              0x2B        ;)  /* TIM8 Break I
+                                                            nterrupt */
+  279 00000000 0000002C 
+                       TIM8_UP_IRQChannel
+                               EQU              0x2C        ;)  /* TIM8 Update 
+                                                            Interrupt */
+  280 00000000 0000002D 
+                       TIM8_TRG_COM_IRQChannel
+                               EQU              0x2D        ;)  /* TIM8 Trigger
+                                                             and Commutation In
+                                                            terrupt */
+  281 00000000 0000002E 
+                       TIM8_CC_IRQChannel
+                               EQU              0x2E        ;)  /* TIM8 Capture
+
+
+
+ARM Macro Assembler    Page 13 
+
+
+                                                             Compare Interrupt 
+                                                            */
+  282 00000000 0000002F 
+                       ADC3_IRQChannel
+                               EQU              0x2F        ;)  /* ADC3 global 
+                                                            Interrupt */
+  283 00000000 00000030 
+                       FSMC_IRQChannel
+                               EQU              0x30        ;)  /* FSMC global 
+                                                            Interrupt */
+  284 00000000 00000031 
+                       SDIO_IRQChannel
+                               EQU              0x31        ;)  /* SDIO global 
+                                                            Interrupt */
+  285 00000000 00000032 
+                       TIM5_IRQChannel
+                               EQU              0x32        ;)  /* TIM5 global 
+                                                            Interrupt */
+  286 00000000 00000033 
+                       SPI3_IRQChannel
+                               EQU              0x33        ;)  /* SPI3 global 
+                                                            Interrupt */
+  287 00000000 00000034 
+                       UART4_IRQChannel
+                               EQU              0x34        ;)  /* UART4 global
+                                                             Interrupt */
+  288 00000000 00000035 
+                       UART5_IRQChannel
+                               EQU              0x35        ;)  /* UART5 global
+                                                             Interrupt */
+  289 00000000 00000036 
+                       TIM6_IRQChannel
+                               EQU              0x36        ;)  /* TIM6 global 
+                                                            Interrupt */
+  290 00000000 00000037 
+                       TIM7_IRQChannel
+                               EQU              0x37        ;)  /* TIM7 global 
+                                                            Interrupt */
+  291 00000000 00000038 
+                       DMA2_Channel1_IRQChannel
+                               EQU              0x38        ;)  /* DMA2 Channel
+                                                             1 global Interrupt
+                                                             */
+  292 00000000 00000039 
+                       DMA2_Channel2_IRQChannel
+                               EQU              0x39        ;)  /* DMA2 Channel
+                                                             2 global Interrupt
+                                                             */
+  293 00000000 0000003A 
+                       DMA2_Channel3_IRQChannel
+                               EQU              0x3A        ;)  /* DMA2 Channel
+                                                             3 global Interrupt
+                                                             */
+  294 00000000 0000003B 
+                       DMA2_Channel4_5_IRQChannel
+                               EQU              0x3B        ;)  /* DMA2 Channel
+                                                             4 and DMA2 Channel
+                                                             5 global Interrupt
+                                                             */
+
+
+
+ARM Macro Assembler    Page 14 
+
+
+  295 00000000         
+  296 00000000         ;颜色定义    
+  297 00000000 0000FFFF 
+                       WHITE   EQU              0x0000FFFF
+  298 00000000 00000000 
+                       BLACK   EQU              0x00000000
+  299 00000000 0000F800 
+                       BLUE    EQU              0x0000F800
+  300 00000000 0000F81F 
+                       BRED    EQU              0X0000F81F
+  301 00000000 0000FFE0 
+                       GRED    EQU              0X0000FFE0
+  302 00000000 0000001F 
+                       RED     EQU              0x0000001F
+  303 00000000 0000F81F 
+                       MAGENTA EQU              0x0000F81F
+  304 00000000 000007E0 
+                       GREEN   EQU              0x000007E0
+  305 00000000 00007FFF 
+                       CYAN    EQU              0x00007FFF
+  306 00000000 000007FF 
+                       YELLOW  EQU              0x000007FF
+  307 00000000 0000BC40 
+                       BROWN   EQU              0X0000BC40
+  308 00000000 0000FC07 
+                       BRRED   EQU              0X0000FC07
+  309 00000000 00008430 
+                       GRAY    EQU              0X00008430
+  310 00000000         
+  311 00000000         
+  312 00000000         
+  313 00000000                 END
+    5 00000000                 AREA             COMMON_DATA, CODE, READWRITE
+    6 00000000 00000000 
+                       DELAY_NTIME
+                               DCD              0X00000000
+    7 00000004                 EXPORT           DELAY_NTIME
+    8 00000004                 AREA             COMMON_PROC, CODE, READONLY
+    9 00000000         
+   10 00000000         SYSTICK_INIT
+                               PROC
+   11 00000000                 EXPORT           SYSTICK_INIT
+   12 00000000 E92D 41FF       PUSH             {R0-R8, LR}
+   13 00000004         ;SYSTICK使用外部时钟源,开启中断
+   14 00000004 4832            LDR              R0, =SYSTICK_CTRL
+   15 00000006 6801            LDR              R1, [R0]
+   16 00000008 F021 0104       BIC              R1, R1, #Bit2
+   17 0000000C F041 0102       ORR              R1, R1, #Bit1
+   18 00000010 6001            STR              R1, [R0]
+   19 00000012 4830            LDR              R0, =SYSTICK_LOAD
+   20 00000014 F242 3128       LDR              R1, =9000
+   21 00000018 6001            STR              R1, [R0]
+   22 0000001A E8BD 81FF       POP              {R0-R8, PC}
+   23 0000001E                 ENDP
+   24 0000001E         ;利用SysTick实现毫秒级延时
+   25 0000001E         ;R0作为参数，表示延时时长
+   26 0000001E         SYS_DELAY_MS
+                               PROC
+   27 0000001E                 EXPORT           SYS_DELAY_MS
+
+
+
+ARM Macro Assembler    Page 15 
+
+
+   28 0000001E E92D 41FF       PUSH             {R0-R8, LR}
+   29 00000022         ;设置延时时长
+   30 00000022 492D            LDR              R1, =DELAY_NTIME
+   31 00000024 6008            STR              R0, [R1]
+   32 00000026         ;计数器清零
+   33 00000026 492D            LDR              R1, =SYSTICK_VAL
+   34 00000028 F04F 0200       MOV              R2, #0
+   35 0000002C 600A            STR              R2, [R1]
+   36 0000002E         ;启动systick
+   37 0000002E 4928            LDR              R1, =SYSTICK_CTRL
+   38 00000030 680A            LDR              R2, [R1]
+   39 00000032 F042 0201       ORR              R2, #Bit0
+   40 00000036 600A            STR              R2, [R1]
+   41 00000038 4927            LDR              R1, =DELAY_NTIME
+   42 0000003A 6808    SYS_DLY_NOTOK
+                               LDR              R0, [R1]
+   43 0000003C 2800            CMP              R0, #0
+   44 0000003E D1FC            BNE              SYS_DLY_NOTOK
+   45 00000040         ;计数器清零
+   46 00000040 4926            LDR              R1, =SYSTICK_VAL
+   47 00000042 F04F 0200       MOV              R2, #0
+   48 00000046 600A            STR              R2, [R1]
+   49 00000048         ;停止systick
+   50 00000048 4921            LDR              R1, =SYSTICK_CTRL
+   51 0000004A 680A            LDR              R2, [R1]
+   52 0000004C F022 0201       BIC              R2, R2, #Bit0
+   53 00000050 600A            STR              R2, [R1]
+   54 00000052 E8BD 81FF       POP              {R0-R8, PC}
+   55 00000056                 ENDP
+   56 00000056         
+   57 00000056         ;延时一定时长，通过r0传递延时时间
+   58 00000056         USR_DELAY
+                               PROC
+   59 00000056                 EXPORT           USR_DELAY
+   60 00000056 E92D 41FF       PUSH             {R0-R8, LR}
+   61 0000005A 1E40    DELAY_NOTOK
+                               SUBS             R0, R0, #1
+   62 0000005C BF00            NOP
+   63 0000005E D1FC            BNE              DELAY_NOTOK
+   64 00000060 E8BD 81FF       POP              {R0-R8, PC}
+   65 00000064                 ENDP
+   66 00000064         
+   67 00000064         ;注意优先级不能超过设定的组的范围!否则会有未定义的错误
+   68 00000064         ;组划分:
+   69 00000064         ;组0:4位抢占优先级,0位子优先级
+   70 00000064         ;该子程序仅需被执行一次
+   71 00000064         NVIC_SET_GROUP
+                               PROC
+   72 00000064                 EXPORT           NVIC_SET_GROUP
+   73 00000064 E92D 41FF       PUSH             {R0-R8, LR}
+   74 00000068 4B1D            LDR              R3, =SCB_AIRCR
+   75 0000006A 6819            LDR              R1, [R3]
+   76 0000006C         ;清空之前的分组
+   77 0000006C 4A1D            LDR              R2, =0XFFFFF8FF
+   78 0000006E EA01 0102       AND              R1, R2
+   79 00000072 F04F 0000       MOV              R0, #0
+   80 00000076 F100 0003       ADD              R0, #3
+   81 0000007A EA4F 2000       LSL              R0, #8
+   82 0000007E EA40 0001       ORR              R0, R1
+
+
+
+ARM Macro Assembler    Page 16 
+
+
+   83 00000082 6018            STR              R0, [R3]
+   84 00000084 4818            LDR              R0, =SCB_VTOR
+   85 00000086         ;设置中断向量表的位置
+   86 00000086 F04F 6100       MOV              R1, #0X08000000
+   87 0000008A 6001            STR              R1, [R0]
+   88 0000008C E8BD 81FF       POP              {R0-R8, PC}
+   89 00000090                 ENDP
+   90 00000090         ;R0 表示中断号 
+   91 00000090         ;R1 表示抢占优先级别(0~15)
+   92 00000090         NVIC_SET_PRIO
+                               PROC
+   93 00000090                 EXPORT           NVIC_SET_PRIO
+   94 00000090 E92D 41FF       PUSH             {R0-R8, LR}
+   95 00000094         ;保证优先级属于0x00~0x0F
+   96 00000094 F001 010F       AND              R1, #0X0F
+   97 00000098 4A14            LDR              R2, =NVIC_IPR_BASE
+   98 0000009A EA4F 1101       LSL              R1, #4
+   99 0000009E 5411            STRB             R1, [R2, R0]
+  100 000000A0 E8BD 81FF       POP              {R0-R8, PC}
+  101 000000A4                 ENDP
+  102 000000A4         ;开启中断，中断使能
+  103 000000A4         ;R0中保存的是要操作的中断号
+  104 000000A4         NVIC_SET_ENABLE
+                               PROC
+  105 000000A4                 EXPORT           NVIC_SET_ENABLE
+  106 000000A4 E92D 41FF       PUSH             {R0-R8, LR}
+  107 000000A8         ;保证中断号在合法范围内
+  108 000000A8 F04F 013F       LDR              R1, =0X3F
+  109 000000AC EA00 0001       AND              R0, R1
+  110 000000B0         ;判断当前中断号属于ISER的高32位还是低32位
+  111 000000B0 281F            CMP              R0, #31
+  112 000000B2 BF86 490E       LDRHI            R1, =NVIC_ISER2
+  113 000000B6 3820            SUBHI            R0, #32
+  114 000000B8 490E            LDRLS            R1, =NVIC_ISER1
+  115 000000BA F04F 0201       MOV              R2, #1
+  116 000000BE 680B            LDR              R3, [R1]
+  117 000000C0 FA02 F200       LSL              R2, R0
+  118 000000C4 EA43 0302       ORR              R3, R2
+  119 000000C8 600B            STR              R3, [R1]
+  120 000000CA E8BD 81FF       POP              {R0-R8, PC}
+  121 000000CE                 ENDP
+  122 000000CE         
+  123 000000CE 00 00           ALIGN
+  124 000000D0                 END
+              E000E010 
+              E000E014 
+              00000000 
+              E000E018 
+              E000ED0C 
+              FFFFF8FF 
+              E000ED08 
+              E000E400 
+              E000E104 
+              E000E100 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\obj\co
+mmon.d -o.\obj\common.o -I.\codes -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\In
+clude -IC:\Keil\ARM\Inc\ST\STM32F10x --list=.\list\common.lst codes\common.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+COMMON_DATA 00000000
+
+Symbol: COMMON_DATA
+   Definitions
+      At line 5 in file codes\common.s
+   Uses
+      None
+Comment: COMMON_DATA unused
+DELAY_NTIME 00000000
+
+Symbol: DELAY_NTIME
+   Definitions
+      At line 6 in file codes\common.s
+   Uses
+      At line 7 in file codes\common.s
+      At line 30 in file codes\common.s
+      At line 41 in file codes\common.s
+
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+COMMON_PROC 00000000
+
+Symbol: COMMON_PROC
+   Definitions
+      At line 8 in file codes\common.s
+   Uses
+      None
+Comment: COMMON_PROC unused
+DELAY_NOTOK 0000005A
+
+Symbol: DELAY_NOTOK
+   Definitions
+      At line 61 in file codes\common.s
+   Uses
+      At line 63 in file codes\common.s
+Comment: DELAY_NOTOK used once
+NVIC_SET_ENABLE 000000A4
+
+Symbol: NVIC_SET_ENABLE
+   Definitions
+      At line 104 in file codes\common.s
+   Uses
+      At line 105 in file codes\common.s
+Comment: NVIC_SET_ENABLE used once
+NVIC_SET_GROUP 00000064
+
+Symbol: NVIC_SET_GROUP
+   Definitions
+      At line 71 in file codes\common.s
+   Uses
+      At line 72 in file codes\common.s
+Comment: NVIC_SET_GROUP used once
+NVIC_SET_PRIO 00000090
+
+Symbol: NVIC_SET_PRIO
+   Definitions
+      At line 92 in file codes\common.s
+   Uses
+      At line 93 in file codes\common.s
+Comment: NVIC_SET_PRIO used once
+SYSTICK_INIT 00000000
+
+Symbol: SYSTICK_INIT
+   Definitions
+      At line 10 in file codes\common.s
+   Uses
+      At line 11 in file codes\common.s
+Comment: SYSTICK_INIT used once
+SYS_DELAY_MS 0000001E
+
+Symbol: SYS_DELAY_MS
+   Definitions
+      At line 26 in file codes\common.s
+   Uses
+      At line 27 in file codes\common.s
+Comment: SYS_DELAY_MS used once
+SYS_DLY_NOTOK 0000003A
+
+Symbol: SYS_DLY_NOTOK
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 42 in file codes\common.s
+   Uses
+      At line 44 in file codes\common.s
+Comment: SYS_DLY_NOTOK used once
+USR_DELAY 00000056
+
+Symbol: USR_DELAY
+   Definitions
+      At line 58 in file codes\common.s
+   Uses
+      At line 59 in file codes\common.s
+Comment: USR_DELAY used once
+9 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ADC1_2_IRQChannel 00000012
+
+Symbol: ADC1_2_IRQChannel
+   Definitions
+      At line 253 in file codes\map.s
+   Uses
+      None
+Comment: ADC1_2_IRQChannel unused
+ADC3_IRQChannel 0000002F
+
+Symbol: ADC3_IRQChannel
+   Definitions
+      At line 282 in file codes\map.s
+   Uses
+      None
+Comment: ADC3_IRQChannel unused
+BLACK 00000000
+
+Symbol: BLACK
+   Definitions
+      At line 298 in file codes\map.s
+   Uses
+      None
+Comment: BLACK unused
+BLUE 0000F800
+
+Symbol: BLUE
+   Definitions
+      At line 299 in file codes\map.s
+   Uses
+      None
+Comment: BLUE unused
+BRED 0000F81F
+
+Symbol: BRED
+   Definitions
+      At line 300 in file codes\map.s
+   Uses
+      None
+Comment: BRED unused
+BROWN 0000BC40
+
+Symbol: BROWN
+   Definitions
+      At line 307 in file codes\map.s
+   Uses
+      None
+Comment: BROWN unused
+BRRED 0000FC07
+
+Symbol: BRRED
+   Definitions
+      At line 308 in file codes\map.s
+   Uses
+      None
+Comment: BRRED unused
+Bit0 00000001
+
+Symbol: Bit0
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 188 in file codes\map.s
+   Uses
+      At line 39 in file codes\common.s
+      At line 52 in file codes\common.s
+
+Bit1 00000002
+
+Symbol: Bit1
+   Definitions
+      At line 189 in file codes\map.s
+   Uses
+      At line 17 in file codes\common.s
+Comment: Bit1 used once
+Bit10 00000400
+
+Symbol: Bit10
+   Definitions
+      At line 198 in file codes\map.s
+   Uses
+      None
+Comment: Bit10 unused
+Bit11 00000800
+
+Symbol: Bit11
+   Definitions
+      At line 199 in file codes\map.s
+   Uses
+      None
+Comment: Bit11 unused
+Bit12 00001000
+
+Symbol: Bit12
+   Definitions
+      At line 200 in file codes\map.s
+   Uses
+      None
+Comment: Bit12 unused
+Bit13 00002000
+
+Symbol: Bit13
+   Definitions
+      At line 201 in file codes\map.s
+   Uses
+      None
+Comment: Bit13 unused
+Bit14 00004000
+
+Symbol: Bit14
+   Definitions
+      At line 202 in file codes\map.s
+   Uses
+      None
+Comment: Bit14 unused
+Bit15 00008000
+
+Symbol: Bit15
+   Definitions
+      At line 203 in file codes\map.s
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Absolute symbols
+
+   Uses
+      None
+Comment: Bit15 unused
+Bit16 00010000
+
+Symbol: Bit16
+   Definitions
+      At line 204 in file codes\map.s
+   Uses
+      None
+Comment: Bit16 unused
+Bit17 00020000
+
+Symbol: Bit17
+   Definitions
+      At line 205 in file codes\map.s
+   Uses
+      None
+Comment: Bit17 unused
+Bit18 00040000
+
+Symbol: Bit18
+   Definitions
+      At line 206 in file codes\map.s
+   Uses
+      None
+Comment: Bit18 unused
+Bit19 00080000
+
+Symbol: Bit19
+   Definitions
+      At line 207 in file codes\map.s
+   Uses
+      None
+Comment: Bit19 unused
+Bit2 00000004
+
+Symbol: Bit2
+   Definitions
+      At line 190 in file codes\map.s
+   Uses
+      At line 16 in file codes\common.s
+Comment: Bit2 used once
+Bit20 00100000
+
+Symbol: Bit20
+   Definitions
+      At line 208 in file codes\map.s
+   Uses
+      None
+Comment: Bit20 unused
+Bit21 00200000
+
+Symbol: Bit21
+   Definitions
+      At line 209 in file codes\map.s
+   Uses
+      None
+Comment: Bit21 unused
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Absolute symbols
+
+Bit22 00400000
+
+Symbol: Bit22
+   Definitions
+      At line 210 in file codes\map.s
+   Uses
+      None
+Comment: Bit22 unused
+Bit23 00800000
+
+Symbol: Bit23
+   Definitions
+      At line 211 in file codes\map.s
+   Uses
+      None
+Comment: Bit23 unused
+Bit24 01000000
+
+Symbol: Bit24
+   Definitions
+      At line 212 in file codes\map.s
+   Uses
+      None
+Comment: Bit24 unused
+Bit25 02000000
+
+Symbol: Bit25
+   Definitions
+      At line 213 in file codes\map.s
+   Uses
+      None
+Comment: Bit25 unused
+Bit26 04000000
+
+Symbol: Bit26
+   Definitions
+      At line 214 in file codes\map.s
+   Uses
+      None
+Comment: Bit26 unused
+Bit27 08000000
+
+Symbol: Bit27
+   Definitions
+      At line 215 in file codes\map.s
+   Uses
+      None
+Comment: Bit27 unused
+Bit28 10000000
+
+Symbol: Bit28
+   Definitions
+      At line 216 in file codes\map.s
+   Uses
+      None
+Comment: Bit28 unused
+Bit29 20000000
+
+Symbol: Bit29
+
+
+
+ARM Macro Assembler    Page 5 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 217 in file codes\map.s
+   Uses
+      None
+Comment: Bit29 unused
+Bit3 00000008
+
+Symbol: Bit3
+   Definitions
+      At line 191 in file codes\map.s
+   Uses
+      None
+Comment: Bit3 unused
+Bit30 40000000
+
+Symbol: Bit30
+   Definitions
+      At line 218 in file codes\map.s
+   Uses
+      None
+Comment: Bit30 unused
+Bit31 80000000
+
+Symbol: Bit31
+   Definitions
+      At line 219 in file codes\map.s
+   Uses
+      None
+Comment: Bit31 unused
+Bit4 00000010
+
+Symbol: Bit4
+   Definitions
+      At line 192 in file codes\map.s
+   Uses
+      None
+Comment: Bit4 unused
+Bit5 00000020
+
+Symbol: Bit5
+   Definitions
+      At line 193 in file codes\map.s
+   Uses
+      None
+Comment: Bit5 unused
+Bit6 00000040
+
+Symbol: Bit6
+   Definitions
+      At line 194 in file codes\map.s
+   Uses
+      None
+Comment: Bit6 unused
+Bit7 00000080
+
+Symbol: Bit7
+   Definitions
+      At line 195 in file codes\map.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 6 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: Bit7 unused
+Bit8 00000100
+
+Symbol: Bit8
+   Definitions
+      At line 196 in file codes\map.s
+   Uses
+      None
+Comment: Bit8 unused
+Bit9 00000200
+
+Symbol: Bit9
+   Definitions
+      At line 197 in file codes\map.s
+   Uses
+      None
+Comment: Bit9 unused
+CAN_RX1_IRQChannel 00000015
+
+Symbol: CAN_RX1_IRQChannel
+   Definitions
+      At line 256 in file codes\map.s
+   Uses
+      None
+Comment: CAN_RX1_IRQChannel unused
+CAN_SCE_IRQChannel 00000016
+
+Symbol: CAN_SCE_IRQChannel
+   Definitions
+      At line 257 in file codes\map.s
+   Uses
+      None
+Comment: CAN_SCE_IRQChannel unused
+CYAN 00007FFF
+
+Symbol: CYAN
+   Definitions
+      At line 305 in file codes\map.s
+   Uses
+      None
+Comment: CYAN unused
+DMA1_Channel1_IRQChannel 0000000B
+
+Symbol: DMA1_Channel1_IRQChannel
+   Definitions
+      At line 246 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel1_IRQChannel unused
+DMA1_Channel2_IRQChannel 0000000C
+
+Symbol: DMA1_Channel2_IRQChannel
+   Definitions
+      At line 247 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel2_IRQChannel unused
+DMA1_Channel3_IRQChannel 0000000D
+
+
+
+ARM Macro Assembler    Page 7 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: DMA1_Channel3_IRQChannel
+   Definitions
+      At line 248 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel3_IRQChannel unused
+DMA1_Channel4_IRQChannel 0000000E
+
+Symbol: DMA1_Channel4_IRQChannel
+   Definitions
+      At line 249 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel4_IRQChannel unused
+DMA1_Channel5_IRQChannel 0000000F
+
+Symbol: DMA1_Channel5_IRQChannel
+   Definitions
+      At line 250 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel5_IRQChannel unused
+DMA1_Channel6_IRQChannel 00000010
+
+Symbol: DMA1_Channel6_IRQChannel
+   Definitions
+      At line 251 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel6_IRQChannel unused
+DMA1_Channel7_IRQChannel 00000011
+
+Symbol: DMA1_Channel7_IRQChannel
+   Definitions
+      At line 252 in file codes\map.s
+   Uses
+      None
+Comment: DMA1_Channel7_IRQChannel unused
+DMA2_Channel1_IRQChannel 00000038
+
+Symbol: DMA2_Channel1_IRQChannel
+   Definitions
+      At line 291 in file codes\map.s
+   Uses
+      None
+Comment: DMA2_Channel1_IRQChannel unused
+DMA2_Channel2_IRQChannel 00000039
+
+Symbol: DMA2_Channel2_IRQChannel
+   Definitions
+      At line 292 in file codes\map.s
+   Uses
+      None
+Comment: DMA2_Channel2_IRQChannel unused
+DMA2_Channel3_IRQChannel 0000003A
+
+Symbol: DMA2_Channel3_IRQChannel
+   Definitions
+
+
+
+ARM Macro Assembler    Page 8 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 293 in file codes\map.s
+   Uses
+      None
+Comment: DMA2_Channel3_IRQChannel unused
+DMA2_Channel4_5_IRQChannel 0000003B
+
+Symbol: DMA2_Channel4_5_IRQChannel
+   Definitions
+      At line 294 in file codes\map.s
+   Uses
+      None
+Comment: DMA2_Channel4_5_IRQChannel unused
+EXTI0_IRQChannel 00000006
+
+Symbol: EXTI0_IRQChannel
+   Definitions
+      At line 241 in file codes\map.s
+   Uses
+      None
+Comment: EXTI0_IRQChannel unused
+EXTI15_10_IRQChannel 00000028
+
+Symbol: EXTI15_10_IRQChannel
+   Definitions
+      At line 275 in file codes\map.s
+   Uses
+      None
+Comment: EXTI15_10_IRQChannel unused
+EXTI1_IRQChannel 00000007
+
+Symbol: EXTI1_IRQChannel
+   Definitions
+      At line 242 in file codes\map.s
+   Uses
+      None
+Comment: EXTI1_IRQChannel unused
+EXTI2_IRQChannel 00000008
+
+Symbol: EXTI2_IRQChannel
+   Definitions
+      At line 243 in file codes\map.s
+   Uses
+      None
+Comment: EXTI2_IRQChannel unused
+EXTI3_IRQChannel 00000009
+
+Symbol: EXTI3_IRQChannel
+   Definitions
+      At line 244 in file codes\map.s
+   Uses
+      None
+Comment: EXTI3_IRQChannel unused
+EXTI4_IRQChannel 0000000A
+
+Symbol: EXTI4_IRQChannel
+   Definitions
+      At line 245 in file codes\map.s
+   Uses
+      None
+
+
+
+ARM Macro Assembler    Page 9 Alphabetic symbol ordering
+Absolute symbols
+
+Comment: EXTI4_IRQChannel unused
+EXTI9_5_IRQChannel 00000017
+
+Symbol: EXTI9_5_IRQChannel
+   Definitions
+      At line 258 in file codes\map.s
+   Uses
+      None
+Comment: EXTI9_5_IRQChannel unused
+FLASH_ACR 40022000
+
+Symbol: FLASH_ACR
+   Definitions
+      At line 160 in file codes\map.s
+   Uses
+      None
+Comment: FLASH_ACR unused
+FLASH_IRQChannel 00000004
+
+Symbol: FLASH_IRQChannel
+   Definitions
+      At line 239 in file codes\map.s
+   Uses
+      None
+Comment: FLASH_IRQChannel unused
+FSMC_BANK1E_BWTR A0000104
+
+Symbol: FSMC_BANK1E_BWTR
+   Definitions
+      At line 182 in file codes\map.s
+   Uses
+      None
+Comment: FSMC_BANK1E_BWTR unused
+FSMC_BANK1_BTCR A0000000
+
+Symbol: FSMC_BANK1_BTCR
+   Definitions
+      At line 180 in file codes\map.s
+   Uses
+      None
+Comment: FSMC_BANK1_BTCR unused
+FSMC_Bank1E_R_BASE A0000104
+
+Symbol: FSMC_Bank1E_R_BASE
+   Definitions
+      At line 181 in file codes\map.s
+   Uses
+      At line 182 in file codes\map.s
+Comment: FSMC_Bank1E_R_BASE used once
+FSMC_Bank1_R_BASE A0000000
+
+Symbol: FSMC_Bank1_R_BASE
+   Definitions
+      At line 179 in file codes\map.s
+   Uses
+      At line 180 in file codes\map.s
+Comment: FSMC_Bank1_R_BASE used once
+FSMC_IRQChannel 00000030
+
+
+
+
+ARM Macro Assembler    Page 10 Alphabetic symbol ordering
+Absolute symbols
+
+Symbol: FSMC_IRQChannel
+   Definitions
+      At line 283 in file codes\map.s
+   Uses
+      None
+Comment: FSMC_IRQChannel unused
+GPIOA_BASE 40010800
+
+Symbol: GPIOA_BASE
+   Definitions
+      At line 22 in file codes\map.s
+   Uses
+      At line 23 in file codes\map.s
+      At line 24 in file codes\map.s
+      At line 25 in file codes\map.s
+      At line 26 in file codes\map.s
+      At line 27 in file codes\map.s
+      At line 28 in file codes\map.s
+      At line 29 in file codes\map.s
+
+GPIOA_BRR 40010814
+
+Symbol: GPIOA_BRR
+   Definitions
+      At line 28 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_BRR unused
+GPIOA_BSRR 40010810
+
+Symbol: GPIOA_BSRR
+   Definitions
+      At line 27 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_BSRR unused
+GPIOA_CRH 40010804
+
+Symbol: GPIOA_CRH
+   Definitions
+      At line 24 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_CRH unused
+GPIOA_CRL 40010800
+
+Symbol: GPIOA_CRL
+   Definitions
+      At line 23 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_CRL unused
+GPIOA_IDR 40010808
+
+Symbol: GPIOA_IDR
+   Definitions
+      At line 25 in file codes\map.s
+   Uses
+      None
+
+
+
+ARM Macro Assembler    Page 11 Alphabetic symbol ordering
+Absolute symbols
+
+Comment: GPIOA_IDR unused
+GPIOA_LCKR 40010818
+
+Symbol: GPIOA_LCKR
+   Definitions
+      At line 29 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_LCKR unused
+GPIOA_ODR 4001080C
+
+Symbol: GPIOA_ODR
+   Definitions
+      At line 26 in file codes\map.s
+   Uses
+      None
+Comment: GPIOA_ODR unused
+GPIOB_BASE 40010C00
+
+Symbol: GPIOB_BASE
+   Definitions
+      At line 35 in file codes\map.s
+   Uses
+      At line 36 in file codes\map.s
+      At line 37 in file codes\map.s
+      At line 38 in file codes\map.s
+      At line 39 in file codes\map.s
+      At line 40 in file codes\map.s
+      At line 41 in file codes\map.s
+      At line 42 in file codes\map.s
+
+GPIOB_BRR 40010C14
+
+Symbol: GPIOB_BRR
+   Definitions
+      At line 41 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_BRR unused
+GPIOB_BSRR 40010C10
+
+Symbol: GPIOB_BSRR
+   Definitions
+      At line 40 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_BSRR unused
+GPIOB_CRH 40010C04
+
+Symbol: GPIOB_CRH
+   Definitions
+      At line 37 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_CRH unused
+GPIOB_CRL 40010C00
+
+Symbol: GPIOB_CRL
+   Definitions
+
+
+
+ARM Macro Assembler    Page 12 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 36 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_CRL unused
+GPIOB_IDR 40010C08
+
+Symbol: GPIOB_IDR
+   Definitions
+      At line 38 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_IDR unused
+GPIOB_LCKR 40010C18
+
+Symbol: GPIOB_LCKR
+   Definitions
+      At line 42 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_LCKR unused
+GPIOB_ODR 40010C0C
+
+Symbol: GPIOB_ODR
+   Definitions
+      At line 39 in file codes\map.s
+   Uses
+      None
+Comment: GPIOB_ODR unused
+GPIOC_BASE 40011000
+
+Symbol: GPIOC_BASE
+   Definitions
+      At line 48 in file codes\map.s
+   Uses
+      At line 49 in file codes\map.s
+      At line 50 in file codes\map.s
+      At line 51 in file codes\map.s
+      At line 52 in file codes\map.s
+      At line 53 in file codes\map.s
+      At line 54 in file codes\map.s
+      At line 55 in file codes\map.s
+
+GPIOC_BRR 40011014
+
+Symbol: GPIOC_BRR
+   Definitions
+      At line 54 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_BRR unused
+GPIOC_BSRR 40011010
+
+Symbol: GPIOC_BSRR
+   Definitions
+      At line 53 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_BSRR unused
+GPIOC_CRH 40011004
+
+
+
+ARM Macro Assembler    Page 13 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: GPIOC_CRH
+   Definitions
+      At line 50 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_CRH unused
+GPIOC_CRL 40011000
+
+Symbol: GPIOC_CRL
+   Definitions
+      At line 49 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_CRL unused
+GPIOC_IDR 40011008
+
+Symbol: GPIOC_IDR
+   Definitions
+      At line 51 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_IDR unused
+GPIOC_LCKR 40011018
+
+Symbol: GPIOC_LCKR
+   Definitions
+      At line 55 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_LCKR unused
+GPIOC_ODR 4001100C
+
+Symbol: GPIOC_ODR
+   Definitions
+      At line 52 in file codes\map.s
+   Uses
+      None
+Comment: GPIOC_ODR unused
+GPIOD_BASE 40011400
+
+Symbol: GPIOD_BASE
+   Definitions
+      At line 61 in file codes\map.s
+   Uses
+      At line 62 in file codes\map.s
+      At line 63 in file codes\map.s
+      At line 64 in file codes\map.s
+      At line 65 in file codes\map.s
+      At line 66 in file codes\map.s
+      At line 67 in file codes\map.s
+      At line 68 in file codes\map.s
+
+GPIOD_BRR 40011414
+
+Symbol: GPIOD_BRR
+   Definitions
+      At line 67 in file codes\map.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 14 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: GPIOD_BRR unused
+GPIOD_BSRR 40011410
+
+Symbol: GPIOD_BSRR
+   Definitions
+      At line 66 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_BSRR unused
+GPIOD_CRH 40011404
+
+Symbol: GPIOD_CRH
+   Definitions
+      At line 63 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_CRH unused
+GPIOD_CRL 40011400
+
+Symbol: GPIOD_CRL
+   Definitions
+      At line 62 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_CRL unused
+GPIOD_IDR 40011408
+
+Symbol: GPIOD_IDR
+   Definitions
+      At line 64 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_IDR unused
+GPIOD_LCKR 40011418
+
+Symbol: GPIOD_LCKR
+   Definitions
+      At line 68 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_LCKR unused
+GPIOD_ODR 4001140C
+
+Symbol: GPIOD_ODR
+   Definitions
+      At line 65 in file codes\map.s
+   Uses
+      None
+Comment: GPIOD_ODR unused
+GPIOE_BASE 40011800
+
+Symbol: GPIOE_BASE
+   Definitions
+      At line 74 in file codes\map.s
+   Uses
+      At line 75 in file codes\map.s
+      At line 76 in file codes\map.s
+      At line 77 in file codes\map.s
+
+
+
+ARM Macro Assembler    Page 15 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 78 in file codes\map.s
+      At line 79 in file codes\map.s
+      At line 80 in file codes\map.s
+      At line 81 in file codes\map.s
+
+GPIOE_BRR 40011814
+
+Symbol: GPIOE_BRR
+   Definitions
+      At line 80 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_BRR unused
+GPIOE_BSRR 40011810
+
+Symbol: GPIOE_BSRR
+   Definitions
+      At line 79 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_BSRR unused
+GPIOE_CRH 40011804
+
+Symbol: GPIOE_CRH
+   Definitions
+      At line 76 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_CRH unused
+GPIOE_CRL 40011800
+
+Symbol: GPIOE_CRL
+   Definitions
+      At line 75 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_CRL unused
+GPIOE_IDR 40011808
+
+Symbol: GPIOE_IDR
+   Definitions
+      At line 77 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_IDR unused
+GPIOE_LCKR 40011818
+
+Symbol: GPIOE_LCKR
+   Definitions
+      At line 81 in file codes\map.s
+   Uses
+      None
+Comment: GPIOE_LCKR unused
+GPIOE_ODR 4001180C
+
+Symbol: GPIOE_ODR
+   Definitions
+      At line 78 in file codes\map.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 16 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: GPIOE_ODR unused
+GPIOF_BASE 40011C00
+
+Symbol: GPIOF_BASE
+   Definitions
+      At line 87 in file codes\map.s
+   Uses
+      At line 88 in file codes\map.s
+      At line 89 in file codes\map.s
+      At line 90 in file codes\map.s
+      At line 91 in file codes\map.s
+      At line 92 in file codes\map.s
+      At line 93 in file codes\map.s
+      At line 94 in file codes\map.s
+
+GPIOF_BRR 40011C14
+
+Symbol: GPIOF_BRR
+   Definitions
+      At line 93 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_BRR unused
+GPIOF_BSRR 40011C10
+
+Symbol: GPIOF_BSRR
+   Definitions
+      At line 92 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_BSRR unused
+GPIOF_CRH 40011C04
+
+Symbol: GPIOF_CRH
+   Definitions
+      At line 89 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_CRH unused
+GPIOF_CRL 40011C00
+
+Symbol: GPIOF_CRL
+   Definitions
+      At line 88 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_CRL unused
+GPIOF_IDR 40011C08
+
+Symbol: GPIOF_IDR
+   Definitions
+      At line 90 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_IDR unused
+GPIOF_LCKR 40011C18
+
+Symbol: GPIOF_LCKR
+
+
+
+ARM Macro Assembler    Page 17 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 94 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_LCKR unused
+GPIOF_ODR 40011C0C
+
+Symbol: GPIOF_ODR
+   Definitions
+      At line 91 in file codes\map.s
+   Uses
+      None
+Comment: GPIOF_ODR unused
+GPIOG_BASE 40012000
+
+Symbol: GPIOG_BASE
+   Definitions
+      At line 100 in file codes\map.s
+   Uses
+      At line 101 in file codes\map.s
+      At line 102 in file codes\map.s
+      At line 103 in file codes\map.s
+      At line 104 in file codes\map.s
+      At line 105 in file codes\map.s
+      At line 106 in file codes\map.s
+      At line 107 in file codes\map.s
+
+GPIOG_BRR 40012014
+
+Symbol: GPIOG_BRR
+   Definitions
+      At line 106 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_BRR unused
+GPIOG_BSRR 40012010
+
+Symbol: GPIOG_BSRR
+   Definitions
+      At line 105 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_BSRR unused
+GPIOG_CRH 40012004
+
+Symbol: GPIOG_CRH
+   Definitions
+      At line 102 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_CRH unused
+GPIOG_CRL 40012000
+
+Symbol: GPIOG_CRL
+   Definitions
+      At line 101 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_CRL unused
+
+
+
+ARM Macro Assembler    Page 18 Alphabetic symbol ordering
+Absolute symbols
+
+GPIOG_IDR 40012008
+
+Symbol: GPIOG_IDR
+   Definitions
+      At line 103 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_IDR unused
+GPIOG_LCKR 40012018
+
+Symbol: GPIOG_LCKR
+   Definitions
+      At line 107 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_LCKR unused
+GPIOG_ODR 4001200C
+
+Symbol: GPIOG_ODR
+   Definitions
+      At line 104 in file codes\map.s
+   Uses
+      None
+Comment: GPIOG_ODR unused
+GRAY 00008430
+
+Symbol: GRAY
+   Definitions
+      At line 309 in file codes\map.s
+   Uses
+      None
+Comment: GRAY unused
+GRED 0000FFE0
+
+Symbol: GRED
+   Definitions
+      At line 301 in file codes\map.s
+   Uses
+      None
+Comment: GRED unused
+GREEN 000007E0
+
+Symbol: GREEN
+   Definitions
+      At line 304 in file codes\map.s
+   Uses
+      None
+Comment: GREEN unused
+I2C1_ER_IRQChannel 00000020
+
+Symbol: I2C1_ER_IRQChannel
+   Definitions
+      At line 267 in file codes\map.s
+   Uses
+      None
+Comment: I2C1_ER_IRQChannel unused
+I2C1_EV_IRQChannel 0000001F
+
+Symbol: I2C1_EV_IRQChannel
+
+
+
+ARM Macro Assembler    Page 19 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 266 in file codes\map.s
+   Uses
+      None
+Comment: I2C1_EV_IRQChannel unused
+I2C2_ER_IRQChannel 00000022
+
+Symbol: I2C2_ER_IRQChannel
+   Definitions
+      At line 269 in file codes\map.s
+   Uses
+      None
+Comment: I2C2_ER_IRQChannel unused
+I2C2_EV_IRQChannel 00000021
+
+Symbol: I2C2_EV_IRQChannel
+   Definitions
+      At line 268 in file codes\map.s
+   Uses
+      None
+Comment: I2C2_EV_IRQChannel unused
+KEY_CENTER 0000000C
+
+Symbol: KEY_CENTER
+   Definitions
+      At line 229 in file codes\map.s
+   Uses
+      None
+Comment: KEY_CENTER unused
+KEY_DOWN 00000002
+
+Symbol: KEY_DOWN
+   Definitions
+      At line 226 in file codes\map.s
+   Uses
+      None
+Comment: KEY_DOWN unused
+KEY_LEFT 00000004
+
+Symbol: KEY_LEFT
+   Definitions
+      At line 227 in file codes\map.s
+   Uses
+      None
+Comment: KEY_LEFT unused
+KEY_RIGHT 00000008
+
+Symbol: KEY_RIGHT
+   Definitions
+      At line 228 in file codes\map.s
+   Uses
+      None
+Comment: KEY_RIGHT unused
+KEY_UP 00000001
+
+Symbol: KEY_UP
+   Definitions
+      At line 225 in file codes\map.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 20 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: KEY_UP unused
+MAGENTA 0000F81F
+
+Symbol: MAGENTA
+   Definitions
+      At line 303 in file codes\map.s
+   Uses
+      None
+Comment: MAGENTA unused
+NVIC_BASE E000E100
+
+Symbol: NVIC_BASE
+   Definitions
+      At line 113 in file codes\map.s
+   Uses
+      At line 114 in file codes\map.s
+      At line 115 in file codes\map.s
+      At line 116 in file codes\map.s
+      At line 117 in file codes\map.s
+      At line 118 in file codes\map.s
+      At line 119 in file codes\map.s
+      At line 120 in file codes\map.s
+      At line 121 in file codes\map.s
+      At line 122 in file codes\map.s
+      At line 123 in file codes\map.s
+      At line 124 in file codes\map.s
+
+NVIC_IABR1 E000E300
+
+Symbol: NVIC_IABR1
+   Definitions
+      At line 122 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_IABR1 unused
+NVIC_IABR2 E000E304
+
+Symbol: NVIC_IABR2
+   Definitions
+      At line 123 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_IABR2 unused
+NVIC_ICER1 E000E180
+
+Symbol: NVIC_ICER1
+   Definitions
+      At line 116 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_ICER1 unused
+NVIC_ICER2 E000E184
+
+Symbol: NVIC_ICER2
+   Definitions
+      At line 117 in file codes\map.s
+   Uses
+      None
+
+
+
+ARM Macro Assembler    Page 21 Alphabetic symbol ordering
+Absolute symbols
+
+Comment: NVIC_ICER2 unused
+NVIC_ICPR1 E000E280
+
+Symbol: NVIC_ICPR1
+   Definitions
+      At line 120 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_ICPR1 unused
+NVIC_ICPR2 E000E284
+
+Symbol: NVIC_ICPR2
+   Definitions
+      At line 121 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_ICPR2 unused
+NVIC_IPR_BASE E000E400
+
+Symbol: NVIC_IPR_BASE
+   Definitions
+      At line 124 in file codes\map.s
+   Uses
+      At line 97 in file codes\common.s
+Comment: NVIC_IPR_BASE used once
+NVIC_ISER1 E000E100
+
+Symbol: NVIC_ISER1
+   Definitions
+      At line 114 in file codes\map.s
+   Uses
+      At line 114 in file codes\common.s
+Comment: NVIC_ISER1 used once
+NVIC_ISER2 E000E104
+
+Symbol: NVIC_ISER2
+   Definitions
+      At line 115 in file codes\map.s
+   Uses
+      At line 112 in file codes\common.s
+Comment: NVIC_ISER2 used once
+NVIC_ISPR1 E000E200
+
+Symbol: NVIC_ISPR1
+   Definitions
+      At line 118 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_ISPR1 unused
+NVIC_ISPR2 E000E204
+
+Symbol: NVIC_ISPR2
+   Definitions
+      At line 119 in file codes\map.s
+   Uses
+      None
+Comment: NVIC_ISPR2 unused
+PVD_IRQChannel 00000001
+
+
+
+
+ARM Macro Assembler    Page 22 Alphabetic symbol ordering
+Absolute symbols
+
+Symbol: PVD_IRQChannel
+   Definitions
+      At line 236 in file codes\map.s
+   Uses
+      None
+Comment: PVD_IRQChannel unused
+RCC_AHBENR 40021014
+
+Symbol: RCC_AHBENR
+   Definitions
+      At line 12 in file codes\map.s
+   Uses
+      None
+Comment: RCC_AHBENR unused
+RCC_APB1ENR 4002101C
+
+Symbol: RCC_APB1ENR
+   Definitions
+      At line 14 in file codes\map.s
+   Uses
+      None
+Comment: RCC_APB1ENR unused
+RCC_APB1RSTR 40021010
+
+Symbol: RCC_APB1RSTR
+   Definitions
+      At line 11 in file codes\map.s
+   Uses
+      None
+Comment: RCC_APB1RSTR unused
+RCC_APB2ENR 40021018
+
+Symbol: RCC_APB2ENR
+   Definitions
+      At line 13 in file codes\map.s
+   Uses
+      None
+Comment: RCC_APB2ENR unused
+RCC_APB2RSTR 4002100C
+
+Symbol: RCC_APB2RSTR
+   Definitions
+      At line 10 in file codes\map.s
+   Uses
+      None
+Comment: RCC_APB2RSTR unused
+RCC_BASE 40021000
+
+Symbol: RCC_BASE
+   Definitions
+      At line 6 in file codes\map.s
+   Uses
+      At line 7 in file codes\map.s
+      At line 8 in file codes\map.s
+      At line 9 in file codes\map.s
+      At line 10 in file codes\map.s
+      At line 11 in file codes\map.s
+      At line 12 in file codes\map.s
+      At line 13 in file codes\map.s
+
+
+
+ARM Macro Assembler    Page 23 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 14 in file codes\map.s
+      At line 15 in file codes\map.s
+      At line 16 in file codes\map.s
+
+RCC_BDCR 40021020
+
+Symbol: RCC_BDCR
+   Definitions
+      At line 15 in file codes\map.s
+   Uses
+      None
+Comment: RCC_BDCR unused
+RCC_CFGR 40021004
+
+Symbol: RCC_CFGR
+   Definitions
+      At line 8 in file codes\map.s
+   Uses
+      None
+Comment: RCC_CFGR unused
+RCC_CIR 40021008
+
+Symbol: RCC_CIR
+   Definitions
+      At line 9 in file codes\map.s
+   Uses
+      None
+Comment: RCC_CIR unused
+RCC_CR 40021000
+
+Symbol: RCC_CR
+   Definitions
+      At line 7 in file codes\map.s
+   Uses
+      None
+Comment: RCC_CR unused
+RCC_CSR 40021024
+
+Symbol: RCC_CSR
+   Definitions
+      At line 16 in file codes\map.s
+   Uses
+      None
+Comment: RCC_CSR unused
+RCC_IRQChannel 00000005
+
+Symbol: RCC_IRQChannel
+   Definitions
+      At line 240 in file codes\map.s
+   Uses
+      None
+Comment: RCC_IRQChannel unused
+RED 0000001F
+
+Symbol: RED
+   Definitions
+      At line 302 in file codes\map.s
+   Uses
+      None
+
+
+
+ARM Macro Assembler    Page 24 Alphabetic symbol ordering
+Absolute symbols
+
+Comment: RED unused
+RTCAlarm_IRQChannel 00000029
+
+Symbol: RTCAlarm_IRQChannel
+   Definitions
+      At line 276 in file codes\map.s
+   Uses
+      None
+Comment: RTCAlarm_IRQChannel unused
+RTC_IRQChannel 00000003
+
+Symbol: RTC_IRQChannel
+   Definitions
+      At line 238 in file codes\map.s
+   Uses
+      None
+Comment: RTC_IRQChannel unused
+SCB_AFSR E000ED3C
+
+Symbol: SCB_AFSR
+   Definitions
+      At line 147 in file codes\map.s
+   Uses
+      None
+Comment: SCB_AFSR unused
+SCB_AIRCR E000ED0C
+
+Symbol: SCB_AIRCR
+   Definitions
+      At line 135 in file codes\map.s
+   Uses
+      At line 74 in file codes\common.s
+Comment: SCB_AIRCR used once
+SCB_BASE E000ED00
+
+Symbol: SCB_BASE
+   Definitions
+      At line 131 in file codes\map.s
+   Uses
+      At line 132 in file codes\map.s
+      At line 133 in file codes\map.s
+      At line 134 in file codes\map.s
+      At line 135 in file codes\map.s
+      At line 136 in file codes\map.s
+      At line 137 in file codes\map.s
+      At line 138 in file codes\map.s
+      At line 139 in file codes\map.s
+      At line 140 in file codes\map.s
+      At line 141 in file codes\map.s
+      At line 142 in file codes\map.s
+      At line 143 in file codes\map.s
+      At line 144 in file codes\map.s
+      At line 145 in file codes\map.s
+      At line 146 in file codes\map.s
+      At line 147 in file codes\map.s
+
+SCB_BFAR E000ED38
+
+Symbol: SCB_BFAR
+
+
+
+ARM Macro Assembler    Page 25 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 146 in file codes\map.s
+   Uses
+      None
+Comment: SCB_BFAR unused
+SCB_CCR E000ED14
+
+Symbol: SCB_CCR
+   Definitions
+      At line 137 in file codes\map.s
+   Uses
+      None
+Comment: SCB_CCR unused
+SCB_CFSR E000ED28
+
+Symbol: SCB_CFSR
+   Definitions
+      At line 142 in file codes\map.s
+   Uses
+      None
+Comment: SCB_CFSR unused
+SCB_CPUID E000ED00
+
+Symbol: SCB_CPUID
+   Definitions
+      At line 132 in file codes\map.s
+   Uses
+      None
+Comment: SCB_CPUID unused
+SCB_DFSR E000ED30
+
+Symbol: SCB_DFSR
+   Definitions
+      At line 144 in file codes\map.s
+   Uses
+      None
+Comment: SCB_DFSR unused
+SCB_HFSR E000ED2C
+
+Symbol: SCB_HFSR
+   Definitions
+      At line 143 in file codes\map.s
+   Uses
+      None
+Comment: SCB_HFSR unused
+SCB_ICSR E000ED04
+
+Symbol: SCB_ICSR
+   Definitions
+      At line 133 in file codes\map.s
+   Uses
+      None
+Comment: SCB_ICSR unused
+SCB_MMFAR E000ED34
+
+Symbol: SCB_MMFAR
+   Definitions
+      At line 145 in file codes\map.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 26 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: SCB_MMFAR unused
+SCB_SCR E000ED10
+
+Symbol: SCB_SCR
+   Definitions
+      At line 136 in file codes\map.s
+   Uses
+      None
+Comment: SCB_SCR unused
+SCB_SHCSR E000ED24
+
+Symbol: SCB_SHCSR
+   Definitions
+      At line 141 in file codes\map.s
+   Uses
+      None
+Comment: SCB_SHCSR unused
+SCB_SHPR1 E000ED18
+
+Symbol: SCB_SHPR1
+   Definitions
+      At line 138 in file codes\map.s
+   Uses
+      None
+Comment: SCB_SHPR1 unused
+SCB_SHPR2 E000ED1C
+
+Symbol: SCB_SHPR2
+   Definitions
+      At line 139 in file codes\map.s
+   Uses
+      None
+Comment: SCB_SHPR2 unused
+SCB_SHPR3 E000ED20
+
+Symbol: SCB_SHPR3
+   Definitions
+      At line 140 in file codes\map.s
+   Uses
+      None
+Comment: SCB_SHPR3 unused
+SCB_VTOR E000ED08
+
+Symbol: SCB_VTOR
+   Definitions
+      At line 134 in file codes\map.s
+   Uses
+      At line 84 in file codes\common.s
+Comment: SCB_VTOR used once
+SDIO_IRQChannel 00000031
+
+Symbol: SDIO_IRQChannel
+   Definitions
+      At line 284 in file codes\map.s
+   Uses
+      None
+Comment: SDIO_IRQChannel unused
+SPI1_IRQChannel 00000023
+
+
+
+ARM Macro Assembler    Page 27 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: SPI1_IRQChannel
+   Definitions
+      At line 270 in file codes\map.s
+   Uses
+      None
+Comment: SPI1_IRQChannel unused
+SPI2_IRQChannel 00000024
+
+Symbol: SPI2_IRQChannel
+   Definitions
+      At line 271 in file codes\map.s
+   Uses
+      None
+Comment: SPI2_IRQChannel unused
+SPI3_IRQChannel 00000033
+
+Symbol: SPI3_IRQChannel
+   Definitions
+      At line 286 in file codes\map.s
+   Uses
+      None
+Comment: SPI3_IRQChannel unused
+SYSTICK_CALIB E000E01C
+
+Symbol: SYSTICK_CALIB
+   Definitions
+      At line 158 in file codes\map.s
+   Uses
+      None
+Comment: SYSTICK_CALIB unused
+SYSTICK_CTRL E000E010
+
+Symbol: SYSTICK_CTRL
+   Definitions
+      At line 155 in file codes\map.s
+   Uses
+      At line 14 in file codes\common.s
+      At line 37 in file codes\common.s
+      At line 50 in file codes\common.s
+
+SYSTICK_LOAD E000E014
+
+Symbol: SYSTICK_LOAD
+   Definitions
+      At line 156 in file codes\map.s
+   Uses
+      At line 19 in file codes\common.s
+Comment: SYSTICK_LOAD used once
+SYSTICK_VAL E000E018
+
+Symbol: SYSTICK_VAL
+   Definitions
+      At line 157 in file codes\map.s
+   Uses
+      At line 33 in file codes\common.s
+      At line 46 in file codes\common.s
+
+SysTick_BASE E000E010
+
+
+
+ARM Macro Assembler    Page 28 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: SysTick_BASE
+   Definitions
+      At line 154 in file codes\map.s
+   Uses
+      At line 155 in file codes\map.s
+      At line 156 in file codes\map.s
+      At line 157 in file codes\map.s
+      At line 158 in file codes\map.s
+
+TAMPER_IRQChannel 00000002
+
+Symbol: TAMPER_IRQChannel
+   Definitions
+      At line 237 in file codes\map.s
+   Uses
+      None
+Comment: TAMPER_IRQChannel unused
+TIM1_BRK_IRQChannel 00000018
+
+Symbol: TIM1_BRK_IRQChannel
+   Definitions
+      At line 259 in file codes\map.s
+   Uses
+      None
+Comment: TIM1_BRK_IRQChannel unused
+TIM1_CC_IRQChannel 0000001B
+
+Symbol: TIM1_CC_IRQChannel
+   Definitions
+      At line 262 in file codes\map.s
+   Uses
+      None
+Comment: TIM1_CC_IRQChannel unused
+TIM1_TRG_COM_IRQChannel 0000001A
+
+Symbol: TIM1_TRG_COM_IRQChannel
+   Definitions
+      At line 261 in file codes\map.s
+   Uses
+      None
+Comment: TIM1_TRG_COM_IRQChannel unused
+TIM1_UP_IRQChannel 00000019
+
+Symbol: TIM1_UP_IRQChannel
+   Definitions
+      At line 260 in file codes\map.s
+   Uses
+      None
+Comment: TIM1_UP_IRQChannel unused
+TIM2_IRQChannel 0000001C
+
+Symbol: TIM2_IRQChannel
+   Definitions
+      At line 263 in file codes\map.s
+   Uses
+      None
+Comment: TIM2_IRQChannel unused
+TIM3_IRQChannel 0000001D
+
+
+
+ARM Macro Assembler    Page 29 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: TIM3_IRQChannel
+   Definitions
+      At line 264 in file codes\map.s
+   Uses
+      None
+Comment: TIM3_IRQChannel unused
+TIM4_IRQChannel 0000001E
+
+Symbol: TIM4_IRQChannel
+   Definitions
+      At line 265 in file codes\map.s
+   Uses
+      None
+Comment: TIM4_IRQChannel unused
+TIM5_IRQChannel 00000032
+
+Symbol: TIM5_IRQChannel
+   Definitions
+      At line 285 in file codes\map.s
+   Uses
+      None
+Comment: TIM5_IRQChannel unused
+TIM6_IRQChannel 00000036
+
+Symbol: TIM6_IRQChannel
+   Definitions
+      At line 289 in file codes\map.s
+   Uses
+      None
+Comment: TIM6_IRQChannel unused
+TIM7_IRQChannel 00000037
+
+Symbol: TIM7_IRQChannel
+   Definitions
+      At line 290 in file codes\map.s
+   Uses
+      None
+Comment: TIM7_IRQChannel unused
+TIM8_BRK_IRQChannel 0000002B
+
+Symbol: TIM8_BRK_IRQChannel
+   Definitions
+      At line 278 in file codes\map.s
+   Uses
+      None
+Comment: TIM8_BRK_IRQChannel unused
+TIM8_CC_IRQChannel 0000002E
+
+Symbol: TIM8_CC_IRQChannel
+   Definitions
+      At line 281 in file codes\map.s
+   Uses
+      None
+Comment: TIM8_CC_IRQChannel unused
+TIM8_TRG_COM_IRQChannel 0000002D
+
+Symbol: TIM8_TRG_COM_IRQChannel
+   Definitions
+
+
+
+ARM Macro Assembler    Page 30 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 280 in file codes\map.s
+   Uses
+      None
+Comment: TIM8_TRG_COM_IRQChannel unused
+TIM8_UP_IRQChannel 0000002C
+
+Symbol: TIM8_UP_IRQChannel
+   Definitions
+      At line 279 in file codes\map.s
+   Uses
+      None
+Comment: TIM8_UP_IRQChannel unused
+UART4_IRQChannel 00000034
+
+Symbol: UART4_IRQChannel
+   Definitions
+      At line 287 in file codes\map.s
+   Uses
+      None
+Comment: UART4_IRQChannel unused
+UART5_IRQChannel 00000035
+
+Symbol: UART5_IRQChannel
+   Definitions
+      At line 288 in file codes\map.s
+   Uses
+      None
+Comment: UART5_IRQChannel unused
+USART1_BASE 40013800
+
+Symbol: USART1_BASE
+   Definitions
+      At line 166 in file codes\map.s
+   Uses
+      At line 167 in file codes\map.s
+      At line 168 in file codes\map.s
+      At line 169 in file codes\map.s
+      At line 170 in file codes\map.s
+      At line 171 in file codes\map.s
+      At line 172 in file codes\map.s
+      At line 173 in file codes\map.s
+
+USART1_BRR 40013808
+
+Symbol: USART1_BRR
+   Definitions
+      At line 169 in file codes\map.s
+   Uses
+      None
+Comment: USART1_BRR unused
+USART1_CR1 4001380C
+
+Symbol: USART1_CR1
+   Definitions
+      At line 170 in file codes\map.s
+   Uses
+      None
+Comment: USART1_CR1 unused
+USART1_CR2 40013810
+
+
+
+ARM Macro Assembler    Page 31 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: USART1_CR2
+   Definitions
+      At line 171 in file codes\map.s
+   Uses
+      None
+Comment: USART1_CR2 unused
+USART1_CR3 40013814
+
+Symbol: USART1_CR3
+   Definitions
+      At line 172 in file codes\map.s
+   Uses
+      None
+Comment: USART1_CR3 unused
+USART1_DR 40013804
+
+Symbol: USART1_DR
+   Definitions
+      At line 168 in file codes\map.s
+   Uses
+      None
+Comment: USART1_DR unused
+USART1_GTPR 40013818
+
+Symbol: USART1_GTPR
+   Definitions
+      At line 173 in file codes\map.s
+   Uses
+      None
+Comment: USART1_GTPR unused
+USART1_IRQChannel 00000025
+
+Symbol: USART1_IRQChannel
+   Definitions
+      At line 272 in file codes\map.s
+   Uses
+      None
+Comment: USART1_IRQChannel unused
+USART1_SR 40013800
+
+Symbol: USART1_SR
+   Definitions
+      At line 167 in file codes\map.s
+   Uses
+      None
+Comment: USART1_SR unused
+USART2_IRQChannel 00000026
+
+Symbol: USART2_IRQChannel
+   Definitions
+      At line 273 in file codes\map.s
+   Uses
+      None
+Comment: USART2_IRQChannel unused
+USART3_IRQChannel 00000027
+
+Symbol: USART3_IRQChannel
+   Definitions
+
+
+
+ARM Macro Assembler    Page 32 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 274 in file codes\map.s
+   Uses
+      None
+Comment: USART3_IRQChannel unused
+USBWakeUp_IRQChannel 0000002A
+
+Symbol: USBWakeUp_IRQChannel
+   Definitions
+      At line 277 in file codes\map.s
+   Uses
+      None
+Comment: USBWakeUp_IRQChannel unused
+USB_HP_CAN_TX_IRQChannel 00000013
+
+Symbol: USB_HP_CAN_TX_IRQChannel
+   Definitions
+      At line 254 in file codes\map.s
+   Uses
+      None
+Comment: USB_HP_CAN_TX_IRQChannel unused
+USB_LP_CAN_RX0_IRQChannel 00000014
+
+Symbol: USB_LP_CAN_RX0_IRQChannel
+   Definitions
+      At line 255 in file codes\map.s
+   Uses
+      None
+Comment: USB_LP_CAN_RX0_IRQChannel unused
+WHITE 0000FFFF
+
+Symbol: WHITE
+   Definitions
+      At line 297 in file codes\map.s
+   Uses
+      None
+Comment: WHITE unused
+WWDG_IRQChannel 00000000
+
+Symbol: WWDG_IRQChannel
+   Definitions
+      At line 235 in file codes\map.s
+   Uses
+      None
+Comment: WWDG_IRQChannel unused
+YELLOW 000007FF
+
+Symbol: YELLOW
+   Definitions
+      At line 306 in file codes\map.s
+   Uses
+      None
+Comment: YELLOW unused
+224 symbols
+567 symbols in table
