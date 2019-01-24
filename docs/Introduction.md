@@ -7,7 +7,11 @@
 在开始这个愉快的过程之前，说说我们需要做哪些前提的准备，或者说我们要用到那些预备知识。整个开发过程在**Linux**下进行的，在**Linux**下搭建基于**arm-none-eabi-gcc**的交叉编译环境。所有的项目是使用**Makefile**来管理，当然**Makefile**是我们这个教程教授的内容之一。所以你需要知道以下这些内容：
 
 1. 拥有一个**Linux**的开发环境，博主使用的是[Oracle VM VirtualBox](https://www.virtualbox.org/) 虚拟机**+**[Ubuntu18.04](https://www.ubuntu.com/download/desktop)。在这里我并不会单独写一个教程去演示如何安装，因为我想在互联网上这样的教程是很多的，大家可以谷歌或者百度。
-2. 熟悉Linux下的命令，其实我们用到命令，并不多。如果你从来没有了解过**Linux**，那么我推荐你可以去看看[实验楼Linux基础入门](https://www.shiyanlou.com/courses/1)的相关内容，花几个小时把这个教程过一下，对于这个教程所需要的**Linux**知识是足够的了。
-3. 搭建基于**arm-none-eabi-gcc**的交叉编译环境，你可以谷歌或者百度。当然可能那一天我也会做这个教程，如果大家有需要的话。
-4. 在**Linux**安装[**ST-Link**](https://github.com/jehoffmann/stlink)因为我们会使用它来下载程序。
 
+2. 熟悉Linux下的命令，其实我们用到命令，并不多。如果你从来没有了解过**Linux**，那么我推荐你可以去看看[实验楼Linux基础入门](https://www.shiyanlou.com/courses/1)的相关内容，花几个小时把这个教程过一下，对于我们课程所需要的**Linux**知识是足够的了。
+
+3. 搭建基于**arm-none-eabi-gcc**的交叉编译环境，你可以谷歌或者百度。当然可能那一天我也会做这个教程，如果大家有需要的话。
+
+4. 在**Linux**安装[**ST-Link**](https://github.com/jehoffmann/stlink)因为我们会使用它来下载程序。你可以谷歌或者百度相关内容，当然如果在安装过程中遇到任何问题，你可以在**issue**提出你的问题。
+
+5. 当然最重要的是开发板，其实这个无所谓的。我的建议是买个最便宜的就可以了，下面是我用到的开发板。
