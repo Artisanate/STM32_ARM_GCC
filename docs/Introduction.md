@@ -13,9 +13,11 @@
 3. 搭建基于**arm-none-eabi-gcc**的交叉编译环境，你可以谷歌或者百度。当然可能那一天我也会做这个教程，如果大家有需要的话。
 
 4. 在**Linux**安装[**ST-Link**](https://github.com/jehoffmann/stlink)因为我们会使用它来下载程序，你可以淘宝一个(如下图)。你可以谷歌或者百度相关内容，当然如果在安装过程中遇到任何问题，你可以在**issue**提出你的问题。
+
 ![ST-LINK-V2](https://github.com/Artisanate/STM32_ARM_GCC/blob/master/docs/picture/ST-LINK-V2.jpg?raw=true)
 
 5. 当然最重要的是开发板，其实这个无所谓的。我的建议是在淘宝买一个便宜的就可以了，下面是我用到的开发板。其实这个一个核心板，只带了一个**LED**外设。
+
 ![STM32F103C8T6核心板](https://github.com/Artisanate/STM32_ARM_GCC/blob/master/docs/picture/STM32F103C8T6.jpg?raw=true)
 
 6. 最后还需要一个USB转串口，我相信玩过51的人都知道。
